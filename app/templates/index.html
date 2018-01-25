@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Рад вас видеть, {{user.username}}</h1>
+    <div>
+        {% if posts %}
+            {% for post in posts %}
+                <div>
+                    <p>{{ post.author}} сказал: <b>{{ post.body }}</b></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="none-posts">
+                В данный момент, записей нет.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
