@@ -14,12 +14,19 @@ body {
   }
 }
 
+<<<<<<< HEAD
 /* .base {
     margin-top: 40px;
 } */
 
+=======
+>>>>>>> dmitry
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dmitry
