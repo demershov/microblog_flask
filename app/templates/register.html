@@ -1,37 +1,126 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Регистрация</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=64) }}<br>
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password2.label }}<br>
-            {{ form.password2(size=32) }}<br>
-            {% for error in form.password2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/register.css') }}">
+
+<div class="container">
+{% from 'includes/_formhelper.html' import render_field %}
+    <form class="form-horizontal" role="form" method="POST" action="">
+		{{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2>Регистрация</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                {{ form.username.label }}
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        {{ form.username(maxlength=32, class="form-control", placeholder="Ваш логин") }}
+
+                    </div>
+                </div>
+            </div>
+			{% for error in form.username.errors %}
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<i class="fa fa-close"> Неверно указан логин</i>
+					</span>
+                </div>
+            </div>
+			{% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <!-- <label for="email">E-Mail адрес</label> -->
+				{{ form.email.label }}
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+						{{ form.email(maxlength=64, class="form-control", placeholder="Ваш e-mail") }}
+                        <!-- <input type="text" name="email" class="form-control" id="email" -->
+                               <!-- placeholder="you@example.com" required autofocus> -->
+                    </div>
+                </div>
+            </div>
+			{% for error in form.email.errors %}
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                            <i class="fa fa-close"> Неверно указан e-mail</i>
+                        </span>
+                </div>
+            </div>
+			{% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <!-- <label for="password">Password</label> -->
+				{{ form.password.label }}
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+						{{ form.password(maxlength=32, class="form-control", placeholder="Ваш пароль") }}
+                        <!-- <input type="password" name="password" class="form-control" id="password" -->
+                               <!-- placeholder="Password" required> -->
+                    </div>
+                </div>
+            </div>
+			{% for error in form.password.errors %}
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                            <i class="fa fa-close"> Неверно указан пароль</i>
+                        </span>
+                </div>
+            </div>
+			{% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <!-- <label for="password">Confirm Password</label> -->
+				{{ form.password2.label }}
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-repeat"></i>
+                        </div>
+						{{ form.password2(maxlength=32, class="form-control", placeholder="Подтвердите ваш пароль") }}
+                        <!-- <input type="password" name="password-confirmation" class="form-control" -->
+                               <!-- id="password-confirm" placeholder="Password" required> -->
+                    </div>
+                </div>
+            </div>
+			{% for error in form.password2.errors %}
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                            <i class="fa fa-close"> Пароли должны совпадать</i>
+                        </span>
+                </div>
+            </div>
+			{% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <!-- <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button> -->
+				{{ form.submit(class="form-control btn btn-success", label_visible=false) }}
+            </div>
+        </div>
     </form>
+</div>
 {% endblock %}
