@@ -10,19 +10,18 @@
                   <!--<small>Secondary Text</small>-->
               </h1>
             <div>
-                {% if posts %}
-                {% for post in posts %}
+                {% if posts %} {% for post in posts %}
                 <!-- Blog Post -->
                 <div class="card mb-4">
                     <!-- <img class="card-img-top" src="../static/images/template.jpg" alt="Card image cap"> -->
                     <div class="card-body">
-                        <h2 class="card-title"><a href="{{url_for('post_id', pk=post.id)}}">{{post.title}}</a></h2>
+                        <h2 class="card-title"><a href="posts/{{post.id}}">{{post.title}}</a></h2>
                         <p class="card-text">{{ post.body|truncate(255, True)|safe }}</p>
-                        <a href="{{url_for('post_id', pk=post.id)}}" class="btn btn-primary">Читать далее &rarr;</a>
+                        <a href="posts/{{post.id}}" class="btn btn-primary">Читать далее &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
-                        {{ momentjs(post.date).fromNow() }}
-                        <a href="{{url_for('user', username=post.author)}}">{{post.author}}</a>
+                        Опубликовано {{post.date}}
+                        <a href="/user/{{post.author}}">{{post.author}}</a>
                     </div>
                 </div>
                 {% endfor %}
