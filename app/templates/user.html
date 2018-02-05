@@ -15,7 +15,7 @@
 
                 {% if user.last_seen %}
                     <p>
-                        Последнее посещение: {{ momentjs(user.last_seen).fromNow() }}
+                        Последнее посещение: {{ user.last_seen }}
                     </p>
                 {% endif %}
             </td>
