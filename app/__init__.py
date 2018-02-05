@@ -6,11 +6,13 @@ from flask_login import LoginManager
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
+from .momentjs import momentjs
+
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
+app.jinja_env.globals['momentjs'] = momentjs
 login = LoginManager(app)
 login.login_view = 'login'
 

@@ -28,9 +28,9 @@ def add_post():
     return render_template('add_post.html', form=form)
 
 
-@app.route('/posts/<string:id_article>')
-def article_id(id_article):
-    post = Post.query.get(id_article)
+@app.route('/posts/<string:pk>')
+def post_id(pk):
+    post = Post.query.get(pk)
 
     return render_template('article.html', article=post)
 
