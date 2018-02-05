@@ -23,6 +23,7 @@
     </form>
     <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p> -->
 
+<<<<<<< HEAD
 
 
 <div class="container text-center">
@@ -88,11 +89,97 @@
 								</form> -->
 							</div>
 						</div>
+=======
+<div class="container">
+{% from 'includes/_formhelper.html' import render_field %}
+	<form class="form-horizontal" role="form" method="POST" action="">
+	{{ form.hidden_tag() }}
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<h2>Авторизация</h2>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="form-group has-danger">
+					<!-- <label class="sr-only" for="email">Login</label> -->
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+						{{ form.username(maxlength=32, class="form-control", placeholder="Ваш логин", required="") }}
+						
+						<!-- <input type="text" name="email" class="form-control" id="email" -->
+							   <!-- placeholder="you@example.com" required autofocus> -->
 					</div>
 				</div>
 			</div>
+			{% for error in form.username.errors %}
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<i class="fa fa-close"></i> Неверно указан логин
+					</span>
+				</div>
+			</div>
+			{% endfor %}
 		</div>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="sr-only" for="password">Password</label>
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+						{{ form.password(maxlength=32, class="form-control", placeholder="Ваш пароль", required="") }}
+						
+						<!-- <input type="password" name="password" class="form-control" id="password" -->
+							   <!-- placeholder="Password" required> -->
+>>>>>>> 6f36483a5a373588d90cd5c082cbee6d6aa2f7b9
+					</div>
+				</div>
+			</div>
+			{% for error in form.password.errors %}
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<i class="fa fa-close"></i> Неверно указан пароль
+					</span>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6" style="padding-top: .35rem">
+				<div class="form-check mb-2 mr-sm-2 mb-sm-0">
+					<label class="form-check-label">
+					{{ form.remember_me(class="form-check-input", label_visible=false) }}
+						<!-- <input class="form-check-input" name="remember" -->
+							   <!-- type="checkbox" > -->
+						<span style="padding-bottom: .15rem">Запомнить меня</span>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="padding-top: 1rem">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				{{ form.submit(class="form-control btn btn-success", label_visible=false) }}
+				<!-- <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button> -->
+			</div>
+		</div>
+<<<<<<< HEAD
 	</div>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/login.css') }}">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'js/login.js') }}"> -->
     {% endblock %}
+=======
+	</form>
+</div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename = 'js/login.js') }}">
+{% endblock %}
+>>>>>>> 6f36483a5a373588d90cd5c082cbee6d6aa2f7b9
