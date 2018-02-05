@@ -25,13 +25,13 @@ class User(UserMixin, db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return self.username
 
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
-    body = db.Column(db.String(140))
+    body = db.Column(db.Text)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

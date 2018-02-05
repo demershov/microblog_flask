@@ -1,5 +1,6 @@
-{% extends 'base.html' %} {% block content %}
-<!-- Page Content -->
+{% extends 'base.html' %}
+
+{% block content %}
 <div class="container">
     <!-- <h1>Рад вас видеть, {{current_user.username}}</h1> -->
     <div class="row">
@@ -13,7 +14,7 @@
                 {% if posts %} {% for post in posts %}
                 <!-- Blog Post -->
                 <div class="card mb-4">
-                    <!-- <img class="card-img-top" src="../static/images/template.jpg" alt="Card image cap"> -->
+                    <img class="card-img-top" src="../static/images/template.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h2 class="card-title"><a href="posts/{{post.id}}">{{post.title}}</a></h2>
                         <p class="card-text">{{ post.body|truncate(255, True)|safe }}</p>
@@ -43,5 +44,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

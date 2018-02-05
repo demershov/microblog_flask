@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <h1 class="mt-4">{{ article.title }}</h1>
+
+      <!-- Author -->
+      <p class="lead">
+        <a href="/user/{{ article.author }}">{{ article.author }}</a>
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+      <p>Опубликовано {{article.date}}</p>
+
+      <hr>
+
+            <p class="lead">{{ article.body | safe }} </p>
+      <hr>
+  </div>
+  </div>
+  </div>
+{% endblock%}

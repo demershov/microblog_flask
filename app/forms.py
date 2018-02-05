@@ -31,6 +31,7 @@ class RegistrationForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     username = StringField('Логин', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     about_me = TextAreaField('Обо мне', validators=[Length(min=0, max=140)])
     submit = SubmitField('Сохранить')
 
@@ -43,3 +44,16 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Этот логин уже занят!')
+
+    def validate_email(self, email):
+        print(email.data, User.query.filter_by(username=self.original_username).first().email)
+        if email.data != User.query.filter_by(username=self.original_username).first().email:
+            user = User.query.filter_by(email=self.email.data).first()
+            if user is not None:
+                raise ValidationError('Этот email уже используется')
+
+
+class PostForm(FlaskForm):
+    title = StringField('Заголовок', validators=[DataRequired(), Length(min=10, max=255)])
+    body = TextAreaField('Содержание', validators=[DataRequired(), Length(min=1, max=4000)])
+    submit = SubmitField('Submit')
