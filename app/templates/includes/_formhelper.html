@@ -5,7 +5,9 @@
     {{ field(**kwargs) | safe }}
     {% if field.errors %}
         {% for e in field.errors %}
-            <p class="help-block">{{ e }}</p>
+            <span class="text-danger align-middle">
+                <i class="fa fa-close"></i> {{e}}
+            </span>
         {% endfor %}
     {% endif %}
 {% endmacro %}

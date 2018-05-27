@@ -3,15 +3,19 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
-import os
 from .momentjs import momentjs
+from flask_mail import Mail
+
+import logging
+import os
+
 
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+mail = Mail(app)
 app.jinja_env.globals['momentjs'] = momentjs
 login = LoginManager(app)
 login.login_view = 'login'

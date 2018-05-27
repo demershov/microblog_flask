@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> {% if title %}
-    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if title %}
+        <title>{{title}}</title>
     {% else %}
-    <title>Добро пожаловать! </title>
+        <title>Добро пожаловать! </title>
     {% endif %}
 
     <!-- Bootstrap -->
@@ -15,7 +16,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
     <script src="{{ url_for('static', filename = 'js/moment-ru.min.js') }}" charset="utf-8"></script>
-    <!-- <script src="{{ url_for('static', filename = 'js/moment-ru.js') }}" charset="utf-8"></script> -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +44,7 @@
                 </nav>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{url_for('index')}}">
                         Главная
                         <span class="sr-only">(current)</span>
                     </a>
@@ -54,7 +54,7 @@
                         <a class="nav-link" href="{{ url_for('login') }}"><span class="glyphicon glyphicon-user"></span>Логин</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">Регистрация</a>
+                        <a class="nav-link" href="{{ url_for('register') }}">Регистрация</a>
                     </li>
                     {% else %}
                     <!-- Если мы авторизованы, выполняется это -->
@@ -74,42 +74,21 @@
             </div>
         </div>
     </nav>
-    <!-- <div class="container-fluid">
-              <a href="{{ url_for('index') }}">Главная</a>
-              {% if current_user.is_anonymous %}
-                  <a href="{{ url_for('login') }}">Войти</a>
-              {% else %}
-                  <a href="{{ url_for('logout') }}">Выйти</a>
-                  <a href="{{url_for('user', username=current_user.username)}}">Профиль</a>
-              {% endif %}
-      </div> -->
-    <!-- {% with messages = get_flashed_messages() %}
-          {% if messages %}
-          <ul>
-              {% for message in messages %}
-              <li>{{ message }}</li>
-              {% endfor %}
-          </ul>
-          {% endif %}
-          {% endwith %} -->
-    <!-- {% include 'includes/_messages.html' %} -->
     {% block content %}
+
     {% endblock %}
+    
     <!-- Footer -->
-    <footer class="footer py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">&copy;Ershor@Zakaraya@Mikhailov</p>
-        </div>
-        <!-- /.container -->
-    </footer>
+    <footer class="bg-dark footer">
+		<div class="container1 text-center">
+			<span class="text-white">&copy;Ershor@Zakaraya@Mikhailov</span>
+		</div>
+		<!-- /.container -->
+	</footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
-    <script type="text/javascript">
-        CKEDITOR.replace('editor')
-    </script>
 </body>
 
 </html>

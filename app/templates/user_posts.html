@@ -1,27 +1,27 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
+<!-- Page Content -->
 <div class="container">
     <!-- <h1>Рад вас видеть, {{current_user.username}}</h1> -->
     <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-md-8">
             <h1 class="my-4">
-                  Последние записи
+                  Мои статьи
                   <!--<small>Secondary Text</small>-->
               </h1>
             <div>
-                {% if posts %} {% for post in posts %}
+                {% if posts %}
+                {% for post in posts %}
                 <!-- Blog Post -->
                 <div class="card mb-4">
-                    <img class="card-img-top" src="../static/images/template.jpg" alt="Card image cap">
+                    <!-- <img class="card-img-top" src="../static/images/template.jpg" alt="Card image cap"> -->
                     <div class="card-body">
                         <h2 class="card-title"><a href="{{url_for('post_id', pk=post.id)}}">{{post.title}}</a></h2>
                         <p class="card-text">{{ post.body|truncate(255, True)|safe }}</p>
                         <a href="{{url_for('post_id', pk=post.id)}}" class="btn btn-primary">Читать далее &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
-                        Опубликовано {{post.date}}
+                        {{ momentjs(post.date).fromNow() }}
                         <a href="{{url_for('user', username=post.author)}}">{{post.author}}</a>
                     </div>
                 </div>
@@ -37,11 +37,12 @@
              </ul>
                 {% else %}
                 <div class="none-posts">
-                    В данный момент, записей нет.
+                    Вы еще ничего не писали
                 </div>
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

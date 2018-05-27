@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename = 'css/register.css') }}">
 
 <div class="container">
-{% from 'includes/_formhelper.html' import render_field %}
+<!-- {% from 'includes/_formhelper.html' import render_field %} -->
     <form class="form-horizontal" role="form" method="POST" action="">
 		{{ form.hidden_tag() }}
         <div class="row">
@@ -23,7 +23,6 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         {{ form.username(maxlength=32, class="form-control", placeholder="Ваш логин") }}
-
                     </div>
                 </div>
             </div>
@@ -31,7 +30,7 @@
             <div class="col-md-3">
                 <div class="form-control-feedback">
 					<span class="text-danger align-middle">
-						<i class="fa fa-close"> Неверно указан логин</i>
+						<i class="fa fa-close"> {{error}} </i>
 					</span>
                 </div>
             </div>
@@ -56,7 +55,7 @@
             <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
-                            <i class="fa fa-close"> Неверно указан e-mail</i>
+                            <i class="fa fa-close"> {{error}} </i>
                         </span>
                 </div>
             </div>
@@ -81,7 +80,7 @@
             <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
-                            <i class="fa fa-close"> Неверно указан пароль</i>
+                            <i class="fa fa-close"> {{ error }}</i>
                         </span>
                 </div>
             </div>
@@ -108,7 +107,7 @@
             <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
-                            <i class="fa fa-close"> Пароли должны совпадать</i>
+                            <i class="fa fa-close"> {{ error }}</i>
                         </span>
                 </div>
             </div>

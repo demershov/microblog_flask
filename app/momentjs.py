@@ -1,5 +1,6 @@
 from jinja2 import Markup
 
+
 class momentjs(object):
     def __init__(self, date):
         self.date = date
