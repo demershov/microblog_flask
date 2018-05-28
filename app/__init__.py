@@ -6,11 +6,10 @@ from flask_login import LoginManager
 from logging.handlers import SMTPHandler, RotatingFileHandler
 from .momentjs import momentjs
 from flask_mail import Mail
+from elasticsearch import Elasticsearch
 
 import logging
 import os
-
-
 
 
 app = Flask(__name__)
@@ -19,7 +18,7 @@ mail = Mail(app)
 app.jinja_env.globals['momentjs'] = momentjs
 login = LoginManager(app)
 login.login_view = 'login'
-
+elasticsearch = Elasticsearch(app.config['ELASTICSEARCH_URL'])
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -50,5 +49,5 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     app.logger.info('Microblog startup')
 
-from app import routes, models, errors
+from app import routes, models, errors, search
 # app.run()

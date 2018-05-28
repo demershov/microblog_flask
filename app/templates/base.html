@@ -37,10 +37,16 @@
         </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                    <form class="form-inline" action="">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Поиск...">
-                        <button class="btn btn-secondary" type="submit">Найти</button>
+                    {% if g.search_form %}
+                    <form class="form-inline" method="get" action="{{ url_for('search') }}">
+                         <div class="form-group">
+                            {{ g.search_form.q(size=20, class='form-control mr-sm-2', placeholder=g.search_form.q.label.text) }}
+                             <button class="btn btn-secondary" type="submit">Найти</button>
+                        </div>
+{#                        <input class="form-control mr-sm-2" type="text" placeholder="Поиск...">#}
+
                     </form>
+                    {% endif %}
                 </nav>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
