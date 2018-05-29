@@ -11,7 +11,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h2 class="card-title"><a href="{{url_for('post_id', pk=post.id)}}">{{post.title}}</a></h2>
-                        <p class="card-text">{{ post.body|truncate(255, True)|safe }}</p>
+                        <p class="card-text">{{ post.body|clean(tags=['strong', 'b', 'em'], strip=True)|truncate(255, True) }}</p>
                         <a href="{{url_for('post_id', pk=post.id)}}" class="btn btn-primary">Читать далее &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
