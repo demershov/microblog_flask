@@ -1,7 +1,7 @@
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, \
     ResetPasswordForm, SearchForm
-from flask import render_template, flash, redirect, url_for, request, g
+from flask import render_template, flash, redirect, url_for, request, g, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
 from werkzeug.urls import url_parse
@@ -36,7 +36,6 @@ def add_post():
 @app.route('/posts/<string:pk>')
 def post_id(pk):
     post = Post.query.get(pk)
-
     return render_template('article.html', article=post, title=post.title)
 
 
@@ -99,7 +98,12 @@ def user(username):
 @login_required
 def user_posts(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user_posts.html', posts=user.posts, title='Статьи пользователя {0}'.format(user.username))
+    page = request.args.get('page', 1, type=int)
+    posts = user.posts.paginate(page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('index', page=posts.next_num) if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) if posts.has_prev else None
+    return render_template('user_posts.html', posts=posts.items, next_url=next_url, prev_url=prev_url,
+                           title='Статьи пользователя {0}'.format(user.username))
 
 
 @app.before_request
@@ -172,13 +176,12 @@ def search():
     if not g.search_form.validate():
         return redirect(url_for('index'))
     page = request.args.get('page', 1, type=int)
-    posts, total = Post.search(g.search_form.q.data, page,
-                               app.config['POSTS_PER_PAGE'])
-    print(posts, total)
+    posts, total = Post.search(g.search_form.q.data, page, app.config['POSTS_PER_PAGE'])
+
     next_url = url_for('search', q=g.search_form.q.data, page=page + 1) \
         if total > page * app.config['POSTS_PER_PAGE'] else None
-    prev_url = url_for('search', q=g.search_form.q.data, page=page - 1) \
-        if page > 1 else None
+
+    prev_url = url_for('search', q=g.search_form.q.data, page=page - 1) if page > 1 else None
     return render_template('search.html', title='Результаты поиска по запросу ' + g.search_form.q.data, posts=posts,
                            next_url=next_url, prev_url=prev_url)
 
