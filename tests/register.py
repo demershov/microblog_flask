@@ -1,150 +1,133 @@
 import unittest
 import time
-import xpaths
 import random
+import xpaths
+from baseFuncs import BaseFunc
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common import exceptions
 
-domain = 'http://127.0.0.1:5000/'
-driver = None
+# Data for register new user edit here
+username = "testlogin" + str(random.randint(1,60))
+email = "test" + str(random.randint(1, 60)) + "@email.com"
+password = "qwerty"
 
-# Data for casual registration
-username = "testlogin4"
-email = "testemail@email.com"
-password = "qwerty1"
+bases = BaseFunc()
 
 def getOrCreateWebdriver():
-    global driver
-    driver = webdriver.Firefox()
-    return driver
-
-def findElement(xpath):
-        return driver.find_element_by_xpath(xpath)
-        
-def GoToRegPage():
-        assert "Микроблог" in  driver.title
-        try:
-            elem = findElement(xpaths.getRegPageXPath())
-            elem.click()
-        except exceptions.NoSuchElementException:
-            assert "Reg page link does not found"
-            return
-        
-        assert (driver.current_url == domain + "register"), "Not the reg page"
-
-        return elem
+    bases.driver = webdriver.Firefox()
+    return bases.driver
 
 def checkIfRegIsDone():
-    time.sleep(2)
+    time.sleep(3)
     try:
-        elem = findElement(xpaths.getUsernameErrorMessage())
+        elem = bases.FindElement(xpaths.getRegUsernameErrorMessage())
         assert len(elem.text) <= 0, "Username error message appears: " + elem.text
     except exceptions.NoSuchElementException:
         pass
+    
     try:
-        elem = findElement(xpaths.getEmailErrorMessage())
+        elem = bases.FindElement(xpaths.getRegEmailErrorMessage())
         assert len(elem.text) <= 0, "Email error message appears: " + elem.text
     except exceptions.NoSuchElementException:
         pass
     
     try:
-        elem = findElement(xpaths.getPasswordErrorMessage())
+        elem = bases.FindElement(xpaths.getRegPasswordErrorMessage())
         assert len(elem.text) <= 0, "Password error message appears: " + elem.text
     except exceptions.NoSuchElementException:
         pass    
     
     try:
-        elem = findElement(xpaths.getConfirmationPasswordErrorMessage())
+        elem = bases.FindElement(xpaths.getRegConfirmationPasswordErrorMessage())
         assert len(elem.text) <= 0, "Password confirmation message appears: " + elem.text
     except exceptions.NoSuchElementException:
         pass
 
-    assert (driver.current_url == domain + "login"), "Registration does not complete"
+    assert (bases.driver.current_url == bases.domain + "/login"), "Registration does not complete"
+
 
 def checkOnUsernameFail():
     time.sleep(2)
 
     try:
-        findElement(xpaths.getUsernameErrorMessage())
+        bases.FindElement(xpaths.getRegUsernameErrorMessage())
     except exceptions.NoSuchElementException:
         assert False, "Username is ok, but it shouldn't be"
     
-    assert (driver.current_url == domain + "register"), "Registration successfully completed, but it shouldn't be"
+    assert (bases.driver.current_url == bases.domain + "/register"), "Registration successfully completed, but it shouldn't be"
 
 def checkOnEmailFail():
     time.sleep(2)
     
     try:
-        findElement(xpaths.getEmailErrorMessage())
+        bases.FindElement(xpaths.getRegEmailErrorMessage())
     except exceptions.NoSuchElementException:
         assert False, "Email is ok, but it shouldn't be"
     
-    assert (driver.current_url == domain + "register"), "Registration successfully completed, but it shouldn't be"
+    assert (bases.driver.current_url == bases.domain + "/register"), "Registration successfully completed, but it shouldn't be"
 
 def checkOnPasswordFail():
     time.sleep(2)
 
     try:
-        findElement(xpaths.getPasswordErrorMessage())
+        bases.FindElement(xpaths.getRegPasswordErrorMessage())
     except exceptions.NoSuchElementException:
         assert False, "Password is ok, but it shouldn't be"
     
-    assert (driver.current_url == domain + "register"), "Registration successfully completed, but it shouldn't be"
+    assert (bases.driver.current_url == bases.domain + "/register"), "Registration successfully completed, but it shouldn't be"
 
 def checkOnConfirmPasswordFail():
     time.sleep(2)
 
     try:
-        findElement(xpaths.getConfirmationPasswordErrorMessage())
+        bases.FindElement(xpaths.getRegConfirmationPasswordErrorMessage())
     except exceptions.NoSuchElementException:
         assert False, "Password is ok, but it shouldn't be"
     
-    assert (driver.current_url == domain + "register"), "Registration successfully completed, but it shouldn't be"
+    assert (bases.driver.current_url == bases.domain + "/register"), "Registration successfully completed, but it shouldn't be"
 
 class SiteTest(unittest.TestCase):
-
-    # Setup
     def setUp(self):
         self.driver = getOrCreateWebdriver()
         self.driver.implicitly_wait(10)
-        global domain
-        self.driver.get(domain)
+        self.driver.get(bases.domain)
+        bases.driver = self.driver
 
     # Casual reg
     def testCasualReg(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys(username)
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys(email)
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys(password)
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys(password)
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -155,38 +138,38 @@ class SiteTest(unittest.TestCase):
     # Fail tests
     # Existing user reg
     def testExistingUserReg(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark")
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail.ru")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -196,33 +179,33 @@ class SiteTest(unittest.TestCase):
 
     # Blank username field reg
     def testBlankUsernameReg(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         # Skipping the username field here
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail.ru")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -232,38 +215,38 @@ class SiteTest(unittest.TestCase):
     
     # Existing email reg
     def testExistingEmailrReg(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark")
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail.ru")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -273,38 +256,38 @@ class SiteTest(unittest.TestCase):
 
     # Invalid email 1
     def testInvalidEmailReg1(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -314,38 +297,38 @@ class SiteTest(unittest.TestCase):
     
     # Invalid email 2
     def testInvalidEmailReg2(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -355,38 +338,38 @@ class SiteTest(unittest.TestCase):
     
     # Invalid email 3
     def testInvalidEmailReg3(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("@mail")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -396,38 +379,38 @@ class SiteTest(unittest.TestCase):
 
     # Invalid email 4
     def testInvalidEmailReg4(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -437,10 +420,10 @@ class SiteTest(unittest.TestCase):
     
     # Invalid email 5 / blank
     def testInvalidEmailReg5(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
@@ -449,21 +432,21 @@ class SiteTest(unittest.TestCase):
         # Skipping the email field here
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty1")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -473,17 +456,17 @@ class SiteTest(unittest.TestCase):
     
     # Invalid password 1 / blank fields
     def testInvalidPassword1(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
@@ -492,7 +475,7 @@ class SiteTest(unittest.TestCase):
         # Skipping both password fields here
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -503,31 +486,31 @@ class SiteTest(unittest.TestCase):
     
     # Invalid password 2 / blank password field
     def testInvalidPassword2(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty123")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -538,31 +521,31 @@ class SiteTest(unittest.TestCase):
 
     # Invalid password 3 / blank confirmation password field
     def testInvalidPassword3(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
@@ -572,38 +555,38 @@ class SiteTest(unittest.TestCase):
         
     # Invalid password 4 / password field does not match confirmation password field
     def testInvalidPassword4(self):
-        elem = GoToRegPage()
+        elem = bases.GoToRegPage()
 
         try:
-            elem = findElement(xpaths.getRegUsernameFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegUsernameFieldXPapth())
             elem.send_keys("naark" + str(random.randint(1, 15)))
         except exceptions.NoSuchElementException:
             assert False, "Username input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getEmailFieldXPapth())
+            elem = bases.FindElement(xpaths.getRegEmailFieldXPapth())
             elem.send_keys("wadernik@mail")
         except exceptions.NoSuchElementException:
             assert False, "Email input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegPasswordXPapth())
             elem.send_keys("qwerty")
         except exceptions.NoSuchElementException:
             assert False, "Password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getConfirmPasswordXPapth())
+            elem = bases.FindElement(xpaths.getRegConfirmPasswordXPapth())
             elem.send_keys("qwerty123")
         except exceptions.NoSuchElementException:
             assert False, "Confirm password input element does not found"
             return
         
         try:
-            elem = findElement(xpaths.getRegButton())
+            elem = bases.FindElement(xpaths.getRegButton())
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Reg button does not found"
