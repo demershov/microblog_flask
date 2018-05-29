@@ -57,4 +57,5 @@ if not app.debug:
     app.logger.info('Microblog startup')
 
 from app import routes, models, errors, search
+from app.api import users
 # app.run()
