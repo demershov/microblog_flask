@@ -41,7 +41,9 @@ class SiteTest(unittest.TestCase):
     # Casual login
     def testCasualLogIn(self):
         bases.Login(bases.username, bases.password)
-        assert (bases.CheckIfLoggedIn()), "Authentication failed"
+        # assert (bases.CheckIfLoggedIn()), "Authentication failed"
+        if not bases.CheckIfLoggedIn():
+                bases.CheckWhyAuthFailed()
 
     # Negative tests
     # Login with wrong pass
@@ -65,7 +67,7 @@ class SiteTest(unittest.TestCase):
         checkOnWrongPassword()
     
     # Смысла это тестить нет, ибо на странице логина поля должны быть 100% заполнены для отправки запроса.
-    # Ни xpath, ни какого-либо вообще следа на клиенте я не могу словить, поэтому тест отменен
+    # Класс required у поля для ввода не пропустит пустое значение
     # Blank password field
     # def testBlankPassField(self):
     #     elem = GoToLoginPage()

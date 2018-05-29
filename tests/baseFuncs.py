@@ -49,16 +49,24 @@ class BaseFunc:
 
         return elem
     
-    def GoToEditPage():
-        if not bases.CheckIfLoggedIn():
-            self.Login(BaseFunc.username, BaseFunc.password)
-            assert (self.CheckIfLoggedIn()), "Authentication failed"
+    def GoToEditPage(self, user, passw):
+        if not self.CheckIfLoggedIn():
+            self.Login(user, passw)
+            # assert (self.CheckIfLoggedIn()), "Authentication failed"
+            if not self.CheckIfLoggedIn():
+                self.CheckWhyAuthFailed()
+        
+        try:
+            elem = self.FindElement(xpaths.getUserMenuNavbarDropdownXPath())
+            elem.click()
+        except exceptions.NoSuchElementException:
+            assert False, "Not authenticated"
         
         try:
             elem = self.FindElement(xpaths.getUserProfileLinkXPath())
             elem.click()
         except exceptions.NoSuchElementException:
-            assert False, "Not authenticated"
+            assert False, "Can't reach user menu dropdown element"
         
         try:
             elem = self.FindElement(xpaths.getEditPageLinkXPath())
@@ -98,3 +106,17 @@ class BaseFunc:
         except exceptions.NoSuchElementException:
             return False
         return True    
+    
+    def CheckWhyAuthFailed(self):
+        try:
+            elem = self.FindElement(xpaths.getLoginWrongUsernameMessageXPath())
+            assert len(elem.text) <= 0, "Username error message appears: " + elem.text
+        except exceptions.NoSuchElementException:
+            pass
+        try:
+            elem = self.FindElement(xpaths.getLoginWrongPasswordMessageXPath())
+            assert len(elem.text) <= 0, "Password error message appears: " + elem.text
+        except exceptions.NoSuchElementException:
+            pass
+
+        assert (self.driver.current_url == BaseFunc.domain + "/login"), "Registration does not complete"

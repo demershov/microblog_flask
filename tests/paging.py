@@ -56,14 +56,18 @@ class SiteTest(unittest.TestCase):
         openPostersProfile()
         
         bases.Login(bases.username, bases.password)
-        assert (bases.CheckIfLoggedIn()), "Authentication failed"
+        #assert (bases.CheckIfLoggedIn()), "Authentication failed"
+        if not bases.CheckIfLoggedIn():
+                bases.CheckWhyAuthFailed()
     
         takeSomeSleep()
     
     # Open login page, log in, click first post, open poster's profile
     def testOpenProfileWhileSignedIn(self):
         bases.Login(bases.username, bases.password)
-        assert (bases.CheckIfLoggedIn()), "Authentication failed"
+        #assert (bases.CheckIfLoggedIn()), "Authentication failed"
+        if not bases.CheckIfLoggedIn():
+                bases.CheckWhyAuthFailed()
 
         openFirstPost()
 
