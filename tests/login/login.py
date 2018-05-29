@@ -21,8 +21,8 @@ def getOrCreateWebdriver():
 def findElement(xpath):
         return driver.find_element_by_xpath(xpath)
 
-def GoToLoginPage():
-        assert "Микроблог" in  driver.title
+def GoToLoginPage(xpaths):
+        # assert "Микроблог" in  driver.title
         try:
             elem = findElement(xpaths.getLoginPageXPath())
             elem.click()
@@ -37,8 +37,9 @@ def GoToLoginPage():
 def checkIfLoggedIn():
     time.sleep(4)
     try:
-        element = findElement(xpaths.getNavbarUsernameXPath())
-        assert (element.text == username), "Not authenticated"
+        # element = findElement(xpaths.getNavbarUsernameXPath())
+        # assert (element.text == username), "Not authenticated"
+        assert (domain + "/user/" not in driver.current_url), "Not authenticated"
     except exceptions.NoSuchElementException:
         assert False, "Navbar element does not found"
         
@@ -71,7 +72,7 @@ class SiteTest(unittest.TestCase):
 
     # Casual login
     def testCasualLogIn(self):
-        elem = GoToLoginPage()
+        elem = GoToLoginPage(xpaths)
 
         try:
             elem = findElement(xpaths.getLoginInputXPath())
@@ -99,7 +100,7 @@ class SiteTest(unittest.TestCase):
     # Fail tests
     # Login with wrong pass
     def testWrongPassLogin(self):
-        elem = GoToLoginPage()
+        elem = GoToLoginPage(xpaths)
         
         try:
             elem = findElement(xpaths.getLoginInputXPath())
@@ -148,7 +149,7 @@ class SiteTest(unittest.TestCase):
 
     # Login with non-existent user
     def testNonExistentUserLogin(self):
-        elem = GoToLoginPage()
+        elem = GoToLoginPage(xpaths)
         
         try:
             elem = findElement(xpaths.getLoginInputXPath())
