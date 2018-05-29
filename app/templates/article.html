@@ -14,6 +14,7 @@
 
       <!-- Author -->
       <p class="lead">
+        <img src="{{ article.author.avatar(18) }}" class="m-x-auto img-fluid img-thumbnail rounded avatar" alt="avatar">
         <a href="/user/{{ article.author }}">{{ article.author }}</a>
       </p>
 
@@ -23,7 +24,7 @@
       <p>Опубликовано {{ momentjs(article.date).calendar() }}</p>
 
       <hr>
-            <p class="lead not-wrap" >{{ article.body[3:-3] | safe }} </p>
+            <div class="lead not-wrap" >{{ article.body | safe }} </div>
       <hr>
   </div>
   </div>

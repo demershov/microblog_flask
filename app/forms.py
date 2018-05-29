@@ -6,7 +6,7 @@ from flask import request
 
 
 class SearchForm(FlaskForm):
-    q = StringField(('Search'), validators=[DataRequired()])
+    q = StringField('Поиск', validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
         if 'formdata' not in kwargs:
@@ -85,7 +85,7 @@ class EditProfileForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired(), Length(min=10, max=255)])
     body = TextAreaField('Содержание', validators=[DataRequired(), Length(min=1, max=4000)])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Сохранить')
 
 
 class ResetPasswordRequestForm(FlaskForm):

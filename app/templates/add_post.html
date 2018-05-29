@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="padding-top: 20px; padding-bottom: 20px">
         <h1>Добавить статью</h1>
         {% from 'includes/_formhelper.html' import render_field %}
         <form class="" method="post">
@@ -12,7 +12,7 @@
             <div class="form-group">
                 {{ render_field(form.body, class='form-control', id='editor')}}
             </div>
-            <p>{{ form.submit() }}</p>
+            <p>{{ form.submit(class="btn btn-success", type="submit") }}</p>
         </form>
     </div>
     <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>

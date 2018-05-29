@@ -7,15 +7,22 @@ from logging.handlers import SMTPHandler, RotatingFileHandler
 from .momentjs import momentjs
 from flask_mail import Mail
 from elasticsearch import Elasticsearch
+from bleach import clean
+from markupsafe import Markup
 
 import logging
 import os
+
+
+def do_clean(text, **kw):
+    return Markup(clean(text, **kw))
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
 mail = Mail(app)
 app.jinja_env.globals['momentjs'] = momentjs
+app.jinja_env.filters['clean'] = do_clean
 login = LoginManager(app)
 login.login_view = 'login'
 elasticsearch = Elasticsearch(app.config['ELASTICSEARCH_URL'])
