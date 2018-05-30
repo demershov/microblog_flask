@@ -133,3 +133,12 @@ def getUsernameXpath():
 
 def getSecondNewsPageXPath():
     return "/html/body/div/div/div/div/ul/li[1]/a"
+
+def getResetPasswordLinkXPath():
+    return "/html/body/div/form/div[4]/div[2]/div/span/a"
+
+def getResetEmailConfirmInputXPath():
+    return "//*[@id='email']"
+
+def getResetSubmitButtonXPath():
+    return "//*[@id='submit']"

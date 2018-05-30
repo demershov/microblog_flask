@@ -9,7 +9,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BaseFunc:
-    domain = 'http://127.0.0.1:5000'
+    #domain = 'http://127.0.0.1:5000'
+    domain = 'http://ovz20.9278817135.z2yr1.vps.myjino.ru'
     driver = None
 
     # Existing user data
@@ -83,13 +84,13 @@ class BaseFunc:
     def openFirstPost(self):
         try:
             elem = self.FindElement(xpaths.getFirstPostPageXPath())
-            newUrl = elem.get_attribute("href")
-            elem.click()
-            self.driver.set_page_load_timeout(10)
-            assert (self.driver.current_url == newUrl), "Wrong link provided"
         except exceptions.NoSuchElementException:
             assert False, "No posts found"
-            return
+        
+        newUrl = elem.get_attribute("href")
+        elem.click()
+        self.driver.set_page_load_timeout(10)
+        assert (self.driver.current_url == newUrl), "Wrong link provided"
 
     def Login(self, user, passw):
         elem = self.GoToLoginPage()

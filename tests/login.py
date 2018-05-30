@@ -64,7 +64,7 @@ class SiteTest(unittest.TestCase):
     # Login with non-existent user with long passw
     def testNonExistentUserLongPass(self):
         bases.Login("asdasdasd", "123" + "qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1")
-        checkOnWrongPassword()
+        checkOnWrongUsername()
     
     def testLogout(self):
         bases.Login(bases.username, bases.password)

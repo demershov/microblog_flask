@@ -71,7 +71,7 @@ class SiteTest(unittest.TestCase):
             elem = bases.FindElement(xpaths.getYourLastPostLinkXPath())
             elem.click()
         except exceptions.NoSuchElementException: 
-             assert False, "Cancel button was not found"
+             assert False, "Unnable to find posts"
     
     def testOpenSecondNewsPage(self):
         try:
@@ -79,7 +79,7 @@ class SiteTest(unittest.TestCase):
             if elem.is_enabled():
                 elem.click()
         except exceptions.NoSuchElementException: 
-             assert False, "Cancel button was not found"
+             assert False, "Second page does not exist"
         
         bases.openFirstPost()        
     
