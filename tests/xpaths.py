@@ -74,6 +74,26 @@ def getEditEmailErrorMessage():
 def getEditAboutInfoErrorMessage():
     return "//*[@id='edit']/form/div[3]/div/span"
 
+# Post
+
+def getWriteNewPostLinkXPath():
+    return "//*[@id='navbarResponsive']/ul/li[2]/a"
+
+def getPostTitleInputFieldXPath():
+    return "//*[@id='title']"
+
+def getPostTextFieldXPath():
+    return "/html/body/p"
+
+def getSubmitButtonXPath():
+    return "//*[@id='submit']"
+
+def getTitleErrorMessageXPath():
+    return "/html/body/div/form/div[1]/span"
+
+def getContentErrorMessageXPath():
+    return "/html/body/div/form/div[2]/span"
+
 # Misc
 
 def getUserMenuNavbarDropdownXPath():
