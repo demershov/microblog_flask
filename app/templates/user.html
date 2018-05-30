@@ -42,6 +42,7 @@
                         </div>
                         <div class="col-md-12">
                             <h4 class="m-t-2"><span class="fa fa-clock-o ion-clock pull-xs-right"></span> Недавняя активность</h4>
+                            {% if posts %}
                             <table style='table-layout: fixed;' class="table table-hover table-striped">
                                 <tbody>
                                     {% for post in posts %}
@@ -69,6 +70,9 @@
                                         </li>
                                     {% endif %}
                             </ul>
+                            {% else %}
+                                Пользователь еще ничего не писал
+                            {% endif %}
                         </div>
                     </div>
                     <!--/row-->

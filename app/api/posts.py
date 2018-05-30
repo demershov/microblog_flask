@@ -10,7 +10,7 @@ from .auth import token_auth
 def get_posts():
     page = request.args.get('offset', 1, type=int)
     per_page = min(request.args.get('count', 1, type=int), 100)
-    data = Post.to_collection_dict(Post.query, page, per_page, 'get_posts')
+    data = Post.to_collection_dict(Post.query.order_by(Post.date.desc()), page, per_page, 'get_posts')
     return jsonify(data)
 
 
@@ -28,7 +28,11 @@ def create_post():
 
     if 'title' not in data or 'body' not in data:
         return bad_request('Запрос должен включать такие ключи как: title, body')
-    # elif
+    elif len(data['title']) > 255 or len(data['title'] < 10):
+        return bad_request('Длина заголовка не может быть меньше 10 или больше 255')
+    elif len(data['body']) > 4000 or len(data['body'] < 1):
+        return bad_request('Длина тела поста не может быть меньше 1 или больше 4000')
+
     user = User.query.filter_by(token=token).first()
 
     if not user:

@@ -177,7 +177,7 @@ def search():
         return redirect(url_for('index'))
     page = request.args.get('page', 1, type=int)
     posts, total = Post.search(g.search_form.q.data, page, app.config['POSTS_PER_PAGE'])
-
+    print(posts.all())
     next_url = url_for('search', q=g.search_form.q.data, page=page + 1) \
         if total > page * app.config['POSTS_PER_PAGE'] else None
 

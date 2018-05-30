@@ -186,6 +186,7 @@ class Post(PaginatedAPIMixin, SearchableMixin, db.Model):
 db.event.listen(db.session, 'before_commit', Post.before_commit)
 db.event.listen(db.session, 'after_commit', Post.after_commit)
 
+
 @login.user_loader
 def load_user(uid):
     return User.query.get(int(uid))
