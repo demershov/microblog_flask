@@ -63,9 +63,9 @@ class PaginatedAPIMixin(object):
             '_links': {
                 'self': url_for(endpoint, offset=page, count=per_page,
                                 **kwargs),
-                'next': url_for(endpoint, page=page + 1, per_page=per_page,
+                'next': url_for(endpoint, offset=page + 1, count=per_page,
                                 **kwargs) if resources.has_next else None,
-                'prev': url_for(endpoint, page=page - 1, per_page=per_page,
+                'prev': url_for(endpoint, offset=page - 1, count=per_page,
                                 **kwargs) if resources.has_prev else None
             }
         }
@@ -152,13 +152,33 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return self.username
 
 
-class Post(SearchableMixin, db.Model):
+class Post(PaginatedAPIMixin, SearchableMixin, db.Model):
     __searchable__ = ['body']
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     body = db.Column(db.Text)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'title': self.title,
+            'author_id': self.user_id,
+            'author_username': User.query.get(self.user_id).username,
+            'body': self.body,
+            'date_public': self.date.isoformat() + 'Z',
+            '_links': {
+                'self': url_for('get_post', id=self.id),
+                'avatar_author': User.query.get(self.user_id).avatar(128)
+            }
+        }
+        return data
+
+    def from_dict(self, data):
+        for field in ['title', 'body', 'user_id']:
+            if field in data:
+                setattr(self, field, data[field])
 
     def __repr__(self):
         return '<Post {0}>'.format(self.title)

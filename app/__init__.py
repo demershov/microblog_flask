@@ -60,4 +60,4 @@ if not app.debug:
 # app.run()
 
 from app import routes, models, errors, search
-from app.api import users, tokens
+from app.api import users, tokens, posts

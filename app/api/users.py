@@ -26,9 +26,9 @@ def create_user():
     data = request.get_json() or {}
     if 'username' not in data or 'email' not in data or 'password' not in data:
         return bad_request('Запрос должен вклчать такие ключи как: username, email, password')
-    if User.query.filter_by(username=data['username']).first():
+    elif User.query.filter_by(username=data['username']).first():
         return bad_request('Пожалуйста, используйте другой username, т.к этот занят.')
-    if User.query.filter_by(email=data['email']).first():
+    elif User.query.filter_by(email=data['email']).first():
         return bad_request('Пожалуйста, используйте другой email, т.к этот занят.')
 
     user = User()
@@ -46,6 +46,7 @@ def create_user():
 def update_user(id):
     user = User.query.get_or_404(id)
     data = request.get_json() or {}
+
     if 'username' in data and data['username'] != user.username and \
             User.query.filter_by(username=data['username']).first():
         return bad_request('Пожалуйста, используйте другой username, т.к этот занят.')

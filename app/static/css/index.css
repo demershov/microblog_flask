@@ -35,3 +35,7 @@ footer {
   vertical-align: middle !important;
   border-radius: 50% !important;
 }
+
+div.not-wrap > p > img {
+  width: 100% !important;
+}
