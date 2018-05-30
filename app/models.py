@@ -1,12 +1,15 @@
 from app import db, login, app
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from hashlib import md5
 from time import time
 from flask import url_for
 from app.search import add_to_index, remove_from_index, query_index
+
+import os
 import jwt
+import base64
 
 
 class SearchableMixin(object):
@@ -77,6 +80,27 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    token = db.Column(db.String(32), index=True, unique=True)
+    token_expiration = db.Column(db.DateTime)
+
+    def get_token(self, expires_in=36000):
+        now = datetime.utcnow()
+        if self.token and self.token_expiration > now + timedelta(seconds=60):
+            return self.token
+        self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
+        self.token_expiration = now + timedelta(seconds=expires_in)
+        db.session.add(self)
+        return self.token
+
+    def revoke_token(self):
+        self.token_expiration = datetime.utcnow() - timedelta(seconds=1)
+
+    @staticmethod
+    def check_token(token):
+        user = User.query.filter_by(token=token).first()
+        if user is None or user.token_expiration < datetime.utcnow():
+            return None
+        return user
 
     def to_dict(self, include_email=False):
         data = {
@@ -137,7 +161,7 @@ class Post(SearchableMixin, db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return f'<Post {self.title}>'
+        return '<Post {0}>'.format(self.title)
 
 db.event.listen(db.session, 'before_commit', Post.before_commit)
 db.event.listen(db.session, 'after_commit', Post.after_commit)

@@ -2,14 +2,17 @@ from app import app, db
 from flask import jsonify, request, url_for
 from app.models import User
 from .errors import bad_request
+from .auth import token_auth
 
 
 @app.route('/api/users/<int:id>', methods=['GET'])
+@token_auth.login_required
 def get_user(id):
     return jsonify(User.query.get_or_404(id).to_dict())
 
 
 @app.route('/api/users/', methods=['GET'])
+@token_auth.login_required
 def get_users():
     page = request.args.get('offset', 1, type=int)
     per_page = min(request.args.get('count', 1, type=int), 100)
@@ -39,15 +42,17 @@ def create_user():
 
 
 @app.route('/users/<int:id>', methods=['PUT'])
+@token_auth.login_required
 def update_user(id):
     user = User.query.get_or_404(id)
     data = request.get_json() or {}
     if 'username' in data and data['username'] != user.username and \
             User.query.filter_by(username=data['username']).first():
         return bad_request('Пожалуйста, используйте другой username, т.к этот занят.')
-    if 'email' in data and data['email'] != user.email and \
-            User.query.filter_by(email=data['email']).first():
+
+    if 'email' in data and data['email'] != user.email and User.query.filter_by(email=data['email']).first():
         return bad_request('Пожалуйста, используйте другой email, т.к этот занят.')
+
     user.from_dict(data, new_user=False)
     db.session.commit()
     return jsonify(user.to_dict())
