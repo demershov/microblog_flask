@@ -82,8 +82,14 @@ def getUserMenuNavbarDropdownXPath():
 def getUserProfileLinkXPath():
     return "//*[@id='navbarResponsive']/ul/li[3]/ul/li[1]/a"
 
+def getUsersPostsListLinkXPath():
+    return "//*[@id='navbarResponsive']/ul/li[3]/ul/li[2]/a"
+
+def getUserLogoutLinkXPath():
+    return "//*[@id='navbarResponsive']/ul/li[3]/ul/li[3]/a"
+
 def getFirstPostPageXPath():
-    return "/html/body/div/div/div/div/div[3]/div[1]/a"
+    return "/html/body/div/div/div/div/div[1]/div[1]/a"
 
 def getPosterProfileLinkFromPostXPath():
     return "/html/body/div/div/div/p[1]/a"
@@ -91,6 +97,11 @@ def getPosterProfileLinkFromPostXPath():
 def getEditPageLinkXPath():
     return "/html/body/div/div/div/ul/li[2]/a"
 
-# Unused
+def getYourLastPostLinkXPath():
+    return "//*[@id='profile']/div/div[2]/table/tbody/tr[1]/td[1]/strong/a"
+
 def getUsernameXpath():
     return "//*[@id='navbarResponsive']/ul/li[3]/a"
+
+def getSecondNewsPageXPath():
+    return "/html/body/div/div/div/div/ul/li[1]/a"

@@ -72,7 +72,51 @@ class SiteTest(unittest.TestCase):
         openFirstPost()
 
         openPostersProfile()
+    
+    def testOpenYourLastPostIfExist(self):
+        bases.Login(bases.username, bases.password)
+        
+        bases.GoToProfilePage(bases.username, bases.password)
+        
+        try:
+            elem = bases.FindElement(xpaths.getYourLastPostLinkXPath())
+            elem.click()
+        except exceptions.NoSuchElementException: 
+             assert False, "Cancel button was not found"
+    
+    def testOpenSecondNewsPage(self):
+        try:
+            elem = bases.FindElement(xpaths.getSecondNewsPageXPath())
+            if elem.is_enabled():
+                elem.click()
+        except exceptions.NoSuchElementException: 
+             assert False, "Cancel button was not found"
+        
+        openFirstPost()        
+    
+    def testOpenListOfYourPosts(self):
+        bases.Login(bases.username, bases.password)
 
+        try:
+            elem = bases.FindElement(xpaths.getUserMenuNavbarDropdownXPath())
+            elem.click()
+        except exceptions.NoSuchElementException: 
+             assert False, "Not authenticated"
+            
+        try:
+            elem = bases.FindElement(xpaths.getUsersPostsListLinkXPath())
+            elem.click()
+        except exceptions.NoSuchElementException: 
+             assert False, "Not authenticated"
+        
+        takeSomeSleep()
+        
+        assert (bases.driver.current_url == bases.domain + "/user/" + bases.username + "/posts"), "Backtracked to the roots?"
+        
+        openFirstPost()
+
+        takeSomeSleep()
+    
 
     def tearDown(self):
         self.driver.close()

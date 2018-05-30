@@ -66,6 +66,28 @@ class SiteTest(unittest.TestCase):
         bases.Login("asdasdasd", "123" + "qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1qwerty1")
         checkOnWrongPassword()
     
+    def testLogout(self):
+        bases.Login(bases.username, bases.password)
+
+        if not bases.CheckIfLoggedIn():
+                bases.CheckWhyAuthFailed()
+
+        try:
+            elem = bases.FindElement(xpaths.getUserMenuNavbarDropdownXPath())
+            elem.click()
+        except exceptions.NoSuchElementException: 
+             assert False, "Not authenticated"
+        
+        try:
+            elem = bases.FindElement(xpaths.getUserLogoutLinkXPath())
+            elem.click()
+        except exceptions.NoSuchElementException: 
+             assert False, "Logout button can't be reached"
+        
+        if not bases.CheckIfLoggedIn():
+            print("Logged out")
+
+    
     # Смысла это тестить нет, ибо на странице логина поля должны быть 100% заполнены для отправки запроса.
     # Класс required у поля для ввода не пропустит пустое значение
     # Blank password field

@@ -49,7 +49,7 @@ class BaseFunc:
 
         return elem
     
-    def GoToEditPage(self, user, passw):
+    def GoToProfilePage(self, user, passw):
         if not self.CheckIfLoggedIn():
             self.Login(user, passw)
             # assert (self.CheckIfLoggedIn()), "Authentication failed"
@@ -67,6 +67,10 @@ class BaseFunc:
             elem.click()
         except exceptions.NoSuchElementException:
             assert False, "Can't reach user menu dropdown element"
+
+    
+    def GoToEditPage(self, user, passw):        
+        self.GoToProfilePage(user, passw)
         
         try:
             elem = self.FindElement(xpaths.getEditPageLinkXPath())
