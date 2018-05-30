@@ -16,17 +16,6 @@ def getOrCreateWebdriver():
 def takeSomeSleep():
     time.sleep(5)
 
-def openFirstPost():
-    try:
-        elem = bases.FindElement(xpaths.getFirstPostPageXPath())
-        newUrl = elem.get_attribute("href")
-        elem.click()
-        bases.driver.set_page_load_timeout(10)
-        assert (bases.driver.current_url == newUrl), "Wrong link provided"
-    except exceptions.NoSuchElementException:
-        assert False, "No posts found"
-        return
-
 def openPostersProfile():
     try:
         elem = bases.FindElement(xpaths.getPosterProfileLinkFromPostXPath())
@@ -47,12 +36,12 @@ class SiteTest(unittest.TestCase):
 
     # Open first (the newest by date) post on the page and then to poster's profile
     def testOpenPostersProfile(self):
-        openFirstPost()
+        bases.openFirstPost()
         openPostersProfile()
 
     # Do the same, but login at the end
     def testLoginAfterClickProfileLink(self):
-        openFirstPost()
+        bases.openFirstPost()
         openPostersProfile()
         
         bases.Login(bases.username, bases.password)
@@ -69,7 +58,7 @@ class SiteTest(unittest.TestCase):
         if not bases.CheckIfLoggedIn():
                 bases.CheckWhyAuthFailed()
 
-        openFirstPost()
+        bases.openFirstPost()
 
         openPostersProfile()
     
@@ -92,7 +81,7 @@ class SiteTest(unittest.TestCase):
         except exceptions.NoSuchElementException: 
              assert False, "Cancel button was not found"
         
-        openFirstPost()        
+        bases.openFirstPost()        
     
     def testOpenListOfYourPosts(self):
         bases.Login(bases.username, bases.password)
@@ -113,7 +102,7 @@ class SiteTest(unittest.TestCase):
         
         assert (bases.driver.current_url == bases.domain + "/user/" + bases.username + "/posts"), "Backtracked to the roots?"
         
-        openFirstPost()
+        bases.openFirstPost()
 
         takeSomeSleep()
     

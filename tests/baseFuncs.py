@@ -79,6 +79,17 @@ class BaseFunc:
             assert False, "Edit link not found or you are not in your profile"
         
         assert (self.driver.current_url == BaseFunc.domain + "/edit_profile"), "You can't access edit personal info page"
+    
+    def openFirstPost(self):
+        try:
+            elem = self.FindElement(xpaths.getFirstPostPageXPath())
+            newUrl = elem.get_attribute("href")
+            elem.click()
+            self.driver.set_page_load_timeout(10)
+            assert (self.driver.current_url == newUrl), "Wrong link provided"
+        except exceptions.NoSuchElementException:
+            assert False, "No posts found"
+            return
 
     def Login(self, user, passw):
         elem = self.GoToLoginPage()

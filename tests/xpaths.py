@@ -94,6 +94,14 @@ def getTitleErrorMessageXPath():
 def getContentErrorMessageXPath():
     return "/html/body/div/form/div[2]/span"
 
+# Search
+
+def getSearchInputFieldXPath():
+    return "//*[@id='q']"
+
+def getSearchSubmitButtonXPath():
+    return "//*[@id='navbarResponsive']/nav/form/div/button"
+
 # Misc
 
 def getUserMenuNavbarDropdownXPath():
