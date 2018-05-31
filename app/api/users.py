@@ -66,7 +66,7 @@ def update_user(id):
         return bad_request('Некоректный адрес')
     elif len(data['username']) > 64:
         return bad_request('Слишком длинный username')
-    elif 'about_me' in data and data['about_me'] > 140 or data['about_me'] < 0:
+    elif 'about_me' in data and (len(data['about_me']) > 140 or len(data['about_me']) < 0):
         return bad_request('Длина описания не может быть больше 140 ')
     elif len(data['password']) < 6:
         return bad_request('Слишком короткий пароль')

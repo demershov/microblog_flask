@@ -28,9 +28,9 @@ def create_post():
 
     if 'title' not in data or 'body' not in data:
         return bad_request('Запрос должен включать такие ключи как: title, body')
-    elif len(data['title']) > 255 or len(data['title'] < 10):
+    elif len(data['title']) > 255 or len(data['title']) < 10:
         return bad_request('Длина заголовка не может быть меньше 10 или больше 255')
-    elif len(data['body']) > 4000 or len(data['body'] < 1):
+    elif len(data['body']) > 4000 or len(data['body']) < 1:
         return bad_request('Длина тела поста не может быть меньше 1 или больше 4000')
 
     user = User.query.filter_by(token=token).first()
@@ -46,4 +46,5 @@ def create_post():
     response = jsonify(post.to_dict())
     response.status_code = 201
     response.headers['Location'] = url_for('get_post', id=post.id)
+    print(response)
     return response

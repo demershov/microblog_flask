@@ -183,8 +183,8 @@ class Post(PaginatedAPIMixin, SearchableMixin, db.Model):
     def __repr__(self):
         return '<Post {0}>'.format(self.title)
 
-db.event.listen(db.session, 'before_commit', Post.before_commit)
-db.event.listen(db.session, 'after_commit', Post.after_commit)
+# db.event.listen(db.session, 'before_commit', Post.before_commit)
+# db.event.listen(db.session, 'after_commit', Post.after_commit)
 
 
 @login.user_loader
