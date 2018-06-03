@@ -1,32 +1,78 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Редактирование профиля</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
+<div class="container">
+    <div class="row m-y-2 my-5">
+        <div class="col-lg-4 pull-lg-8 text-xs-center">
+                <img src="{{ current_user.avatar(256) }}" class="m-x-auto img-fluid img-thumbnail rounded" alt="avatar">
+        </div>
+        <div class="col-lg-8 push-lg-4">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="{{ url_for('user', username=current_user.username)}}" data-target="#profile" class="nav-link">Профиль</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('edit_profile') }}" data-target="#edit" class="nav-link active">Изменить</a>
+                </li>
+            </ul>
+            <div class="tab-content p-b-3">
+                <div class="tab-pane active" id="edit">
+                    <h4 class="m-y-2">Редактировать профиль</h4>
+                    <!-- {% from 'includes/_messages.html' import render_field %} -->
+                    <form role="form" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group row">
+                            {{ form.username.label(class="col-lg-3 col-form-label form-control-label") }}
+                            <!--<label class="col-lg-3 col-form-label form-control-label">Логин</label>-->
+                            <div class="col-lg-9">
+                                {{ form.username(maxlength=32, class="form-control", required="", placeholder="Ваш новый логин") }}
+                                {% for error in form.username.errors %}
+                                    <span class="text-danger align-middle">
+                                        <i class="fa fa-close"></i> {{error}}
+                                    </span>
+                                {% endfor %}
+                                <!--<input class="form-control" type="text" value="Jane">-->
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            {{ form.email.label(class="col-lg-3 col-form-label form-control-label") }}
+                            <!--<label class="col-lg-3 col-form-label form-control-label">Email</label>-->
+                            <div class="col-lg-9">
+                                {{ form.email(maxlength=32, class="form-control", required="", placeholder="Ваш новый e-mail") }}
+                                {% for error in form.email.errors %}
+                                    <span class="text-danger align-middle">
+                                        <i class="fa fa-close"></i> {{error}}
+                                    </span>
+                                {% endfor %}
+                                <!--<input class="form-control" type="email" value="email@gmail.com">-->
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            {{ form.about_me.label(class="col-lg-3 col-form-label form-control-label") }}
+                            <!--<label class="comment col-lg-3">О себе</label>-->
+                            <div class="col-lg-9">
+                                {{ form.about_me(rows=4, cols=50, class="form-control", placeholder="Информация о себе") }}
+                                {% for error in form.about_me.errors %}
+                                    <span class="text-danger align-middle">
+                                        <i class="fa fa-close"></i> Поле не должно превышать более 140 символов
+                                    </span>
+                                {% endfor %}
+                                <!--<textarea class="form-control" type="text" value=""></textarea>-->
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <a class="btn btn-secondary", role="button" href="{{ url_for('user', username=current_user.username)}}">Отмена</a>
+                                {{ form.submit(class="btn btn-success", label_visible=false) }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
 
-            {% for error in form.username.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=64) }}<br>
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.about_me.label }}<br>
-            {{ form.about_me(cols=50, rows=4) }}<br>
-
-            {% for error in form.about_me.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
 {% endblock %}

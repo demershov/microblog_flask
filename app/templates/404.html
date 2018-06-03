@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Такой страницы не существует</h1>
-    <p><a href="{{url_for('index')}}">Назад</a></p>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/404.css') }}">
+    <div class="error-page">
+      <div>
+        <h1 data-h1="404">404</h1>
+        <p data-p="NOT FOUND">NOT FOUND</p>
+      </div>
+    </div>
+    <div id="particles-js"></div>
 {% endblock %}

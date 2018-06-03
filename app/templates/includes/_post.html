@@ -1,0 +1,6 @@
+<tr >
+    <td style='word-wrap:break-word'>
+            <strong><a href="{{url_for('post_id', pk=post.id)}}">{{ post.title }}</a></strong>
+    </td> 
+    <td style='width: 20%'>{{ momentjs(post.date).fromNow() }}</td>
+</tr>
