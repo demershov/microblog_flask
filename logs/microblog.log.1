@@ -1,9 +1,60 @@
-2018-01-28 18:24:17,645 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-01-29 22:01:05,049 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-01-29 22:13:38,169 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-01 18:21:42,917 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 04:03:54,002 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 04:06:20,729 ERROR: Exception on /api/posts [GET] [in d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py:1560]
+2018-05-21 22:38:56,027 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:47]
+2018-05-27 17:00:37,157 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:47]
+2018-05-27 17:17:55,151 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:47]
+2018-05-27 20:05:51,805 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:51]
+2018-05-27 20:07:59,941 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:51]
+2018-05-27 20:09:03,981 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:51]
+2018-05-27 20:12:11,572 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:51]
+2018-05-27 20:15:19,645 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:51]
+2018-05-27 20:19:03,360 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:51]
+2018-05-27 20:21:09,918 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:51]
+2018-12-13 23:42:26,128 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:57]
+2018-12-14 00:17:56,101 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:62]
+2018-12-14 00:39:22,861 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:62]
+2018-12-14 01:15:07,957 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:62]
+2018-12-14 01:15:23,711 ERROR: Exception on /search [GET] [in d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py:1560]
+Traceback (most recent call last):
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\util\connection.py", line 83, in create_connection
+    raise err
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\elasticsearch\connection\http_urllib3.py", line 166, in perform_request
+    response = self.pool.urlopen(method, url, body, retries=False, headers=request_headers, **kw)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\util\retry.py", line 333, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\packages\six.py", line 686, in reraise
+    raise value
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\connectionpool.py", line 601, in urlopen
+    chunked=chunked)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\connectionpool.py", line 357, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "C:\Program Files (x86)\Python36-32\lib\http\client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Program Files (x86)\Python36-32\lib\http\client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Program Files (x86)\Python36-32\lib\http\client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Program Files (x86)\Python36-32\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "C:\Program Files (x86)\Python36-32\lib\http\client.py", line 964, in send
+    self.connect()
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\connection.py", line 166, in connect
+    conn = self._new_conn()
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\urllib3\connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x05FB8910>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
@@ -17,91 +68,54 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1598, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\Mega\Projects\microblog_flask\app\routes.py", line 107, in api_posts
-    response = jsonify(id=user.id)
-AttributeError: 'function' object has no attribute 'id'
-2018-02-05 04:08:26,260 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 04:08:46,037 ERROR: Exception on /api/posts [GET] [in d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py:1560]
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask_login\utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "D:\Mega\Projects\microblog_flask\app\routes.py", line 179, in search
+    posts, total = Post.search(g.search_form.q.data, page, app.config['POSTS_PER_PAGE'])
+  File "D:\Mega\Projects\microblog_flask\app\models.py", line 18, in search
+    ids, total = query_index(cls.__tablename__, expression, page, per_page)
+  File "D:\Mega\Projects\microblog_flask\app\search.py", line 25, in query_index
+    'from': (page - 1) * per_page, 'size': per_page})
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\elasticsearch\client\utils.py", line 76, in _wrapped
+    return func(*args, params=params, **kwargs)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\elasticsearch\client\__init__.py", line 655, in search
+    doc_type, '_search'), params=params, body=body)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\elasticsearch\transport.py", line 314, in perform_request
+    status, headers_response, data = connection.perform_request(method, url, params, body, headers=headers, ignore=ignore, timeout=timeout)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\elasticsearch\connection\http_urllib3.py", line 175, in perform_request
+    raise ConnectionError('N/A', str(e), e)
+elasticsearch.exceptions.ConnectionError: ConnectionError(<urllib3.connection.HTTPConnection object at 0x05FB8910>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение) caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x05FB8910>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение)
+2018-12-14 01:17:50,791 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:62]
+2018-12-14 01:31:26,236 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:62]
+2018-12-14 01:31:40,227 ERROR: Exception on /api/users/ [POST] [in d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py:1560]
 Traceback (most recent call last):
   File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1615, in full_dispatch_request
-    return self.finalize_request(rv)
-  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1630, in finalize_request
-    response = self.make_response(rv)
-  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1725, in make_response
-    raise ValueError('View function did not return a response')
-ValueError: View function did not return a response
-2018-02-05 04:09:09,901 ERROR: Exception on /api/posts [GET] [in d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py:1560]
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\_compat.py", line 33, in reraise
+    raise value
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: create_user() missing 1 required positional argument: 'request'
+2018-12-14 01:31:55,900 ERROR: Exception on /api/users/ [POST] [in d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py:1560]
 Traceback (most recent call last):
   File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1982, in wsgi_app
     response = self.full_dispatch_request()
-  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1615, in full_dispatch_request
-    return self.finalize_request(rv)
-  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1630, in finalize_request
-    response = self.make_response(rv)
-  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1725, in make_response
-    raise ValueError('View function did not return a response')
-ValueError: View function did not return a response
-2018-02-05 05:14:03,486 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 05:16:15,903 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 05:16:25,676 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 05:22:46,216 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:12:54,960 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:13:10,941 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:18:31,403 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:18:53,433 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:19:07,601 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:19:12,358 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:19:41,506 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:20:41,532 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:21:55,089 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:24:15,589 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:24:25,261 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:29:48,339 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:30:13,648 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:31:23,981 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:31:38,982 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:32:26,457 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:32:53,381 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:33:41,802 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:34:59,572 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:35:29,584 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:37:24,486 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:37:35,728 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:37:58,972 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:38:22,643 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:39:08,431 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:39:29,228 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:40:19,533 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:40:28,357 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:41:06,928 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:41:39,310 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:41:52,834 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:44:02,541 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:45:09,357 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:46:06,331 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:46:31,073 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:47:37,909 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:48:34,016 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:49:12,264 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:49:22,195 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:49:58,665 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:54:50,271 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:55:14,848 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:55:30,298 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:55:51,257 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 08:56:04,510 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 09:24:30,934 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 09:36:49,041 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 09:49:29,695 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 10:01:35,935 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 10:02:00,378 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 10:03:20,774 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 10:03:30,770 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 10:06:36,396 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 20:30:23,931 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-02-05 20:53:51,641 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:45]
-2018-05-21 21:53:13,022 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:47]
-2018-05-21 21:58:47,690 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:47]
-2018-05-21 22:08:39,793 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:47]
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\_compat.py", line 33, in reraise
+    raise value
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "d:\mega\projects\microblog_flask\venv\lib\site-packages\flask\app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: create_user() missing 1 required positional argument: 'request'
+2018-12-14 01:32:01,760 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:62]
+2018-12-14 01:32:40,350 INFO: Microblog startup [in D:\Mega\Projects\microblog_flask\app\__init__.py:62]
